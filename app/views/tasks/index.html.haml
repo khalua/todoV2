@@ -1,0 +1,46 @@
+%script
+  var tasks = [];
+%h1 Tasks
+
+.row
+  .six.columns
+    #map_canvas
+    %script
+      display_map(40.7316, -73.9901, 13);
+  .six.columns
+    .controls
+      .new
+        = button_tag 'New Task', :id => 'new_task', :class => 'button radius success tiny'
+        .form.hide
+          = form_tag do
+            = label_tag 'priority_id'
+            = select_tag 'priority_id', options_from_collection_for_select(@auth.priorities.order(:value).reverse,'id', 'name')
+            = label_tag 'is_complete'
+            = check_box_tag 'is_complete', :value => false
+            = label_tag 'title'
+            = text_field_tag 'title', nil, :autofocus => true
+            = label_tag 'description'
+            = text_field_tag 'description'
+            = label_tag 'duedate', 'Due'
+            = text_field_tag 'duedate'
+            = label_tag 'address'
+            = text_field_tag 'address'
+            = link_to('Cancel', '#', :id=>'cancel_task', :class => 'button radius tiny alert')
+            = submit_tag 'New Task', :id => 'create_task', :class => 'button radius tiny'
+            = submit_tag 'Edit Task', :id => 'update_task', :class => 'button radius tiny success'
+
+
+.row
+  .six.columns
+    %ul#tasks
+      - @tasks.each do |task|
+        %li.task_title= task.title
+        %script
+          = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
+        .task_detail
+          %li= task.description
+          %li= task.duedate
+          %li= "Task complete?  #{task.is_complete}"
+          / %li= task.priority_id
+          / %li= task.priority.name
+  .six.colums

@@ -1,0 +1,60 @@
+#map_canvas
+{
+  width: 400px;
+  height: 500px;
+  margin-bottom: 40px;
+  border: 2px solid black;
+}
+
+li
+{
+  list-style-type: none;
+}
+
+.hide
+{
+  display: hidden;
+}
+
+.priority
+{
+  float: left;
+}
+
+.color
+{
+  border: 1px solid black;
+  width: 200px;
+  height: 40px;
+  margin: 0px 5px 5px 5px;
+  border-radius: 5px;
+}
+
+.color:hover
+{
+  border: 5px solid #ffffff;
+}
+
+.clear
+{
+  clear: both;
+}
+
+.pname
+{
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.task_title
+{
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+.task_detail
+{
+  font-size: 15px;
+  text-decoration: none;
+}
