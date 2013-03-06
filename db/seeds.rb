@@ -2,15 +2,14 @@ User.delete_all
 Task.delete_all
 Priority.delete_all
 
-u1 = User.create(:name => 'bob', :email => 'bob@gmail.com', :password => 'a', :password_confirmation => 'a')
-u2 = User.create(:name => 'sue', :email => 'sue@gmail.com', :password => 'a', :password_confirmation => 'a')
-u3 = User.create(:name => 'sam', :email => 'sam@gmail.com', :password => 'a', :password_confirmation => 'a')
+u1 = User.create(:name => 'Tony', :email => 'tony.contreras@gmail.com', :password => 'a', :password_confirmation => 'a')
+u2 = User.create(:name => 'Aly', :email => 'alyfc33@gmail.com', :password => 'a', :password_confirmation => 'a')
+u3 = User.create(:name => 'Sally', :email => 'sally@gmail.com', :password => 'a', :password_confirmation => 'a')
 
-p1 = Priority.create(:name => 'p900', :color => '#ff0000', :value => 900)
-p2 = Priority.create(:name => 'p800', :color => '#00ff00', :value => 800)
-p3 = Priority.create(:name => 'p750', :color => '#0000ff', :value => 750)
-p4 = Priority.create(:name => 'p690', :color => '#ff33cc', :value => 690)
-p5 = Priority.create(:name => 'p775', :color => '#ff90ff', :value => 775)
+p1 = Priority.create(:name => 'high', :color => '#ff0000', :value => 100)
+p2 = Priority.create(:name => 'medium', :color => '#00ff00', :value => 50)
+p3 = Priority.create(:name => 'low', :color => '#0000ff', :value => 25)
+p4 = Priority.create(:name => 'bullshit', :color => '#776016', :value => 10)
 
 t1 = Task.create(:address => '500 Broadway, NYC', :title => 'Get milk', :description => 'Need milk now', :duedate => '3/3/2010', :is_complete => true)
 t2 = Task.create(:address => '310 Greenwich St, NYC', :title => 'Get bread', :description => 'No bread at home', :duedate => '1/9/2011')
@@ -23,5 +22,5 @@ t2.save
 t3.priority = p3
 t3.save
 
-u1.priorities = [p1, p2, p3, p4, p5]
+u1.priorities = [p1, p2, p3, p4]
 u1.tasks << t1 << t2 << t3

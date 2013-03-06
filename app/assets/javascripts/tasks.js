@@ -2,7 +2,27 @@ $(function() {
   $('#new_task').click(show_new_form);
   $('#cancel_task').click(hide_form);
   $('#create_task').click(new_task);
+  $('.delete').click(delete_task);
+  //$('.delete').on('click', 'tr', delete_task); -- not sure why this doesn't work
+
 });
+
+function delete_task()
+{
+  var tr = $(this).parent().parent();
+  var id = $(this).parent().next().text();
+  tr.hide();
+
+  $.ajax({
+      dataType: 'json',
+      type: "post",
+      url: "/tasks/" + id,
+      data: {authenticity_token:token, 'task[priority_id]':priority_id,'task[is_complete]':is_complete, 'task[title]':title, 'task[description]':description, 'task[duedate]':'task[duedate]', 'task[address]':address}
+    }).done(process_task);
+
+  return false;
+
+}
 
 function new_task()
 {
@@ -33,22 +53,20 @@ function process_task(task_list)
 
 function display_task(task)
 {
-  var li = $('<li>');
-  var li1 = $('<li>');
-  var li2 = $('<li>');
-  var li3 = $('<li>');
+  var tr = $('<tr>');
+  var td1 = $('<td>');
+  var td2 = $('<td>');
+  var td3 = $('<td>');
+  var td4 = $('<td>');
 
-  li.addClass('task_title');
-  li1.addClass('task_detail');
-  li2.addClass('task_detail');
-  li3.addClass('task_detail');
+  td2.addClass('color');
 
-  li.text(task.title);
-  li1.text(task.description);
-  li2.text(task.duedate);
-  li3.text("Task complete?  " + task.is_complete);
-  li.append([li, li1, li2, li3]);
-  $('#tasks').append(li);
+  td1.html("<input id='is_complete' name='is_complete' type='checkbox' value='1'>");
+  td2.css('background-color', task.priority.color);
+  td3.text(task.title);
+  td4.html("<a href='#' class='button radius tiny alert' id='delete_task'>Delete</a>");
+  tr.append([td1, td2, td3, td4]);
+  $('tr').last().after(tr);
 
   add_marker(task.latitude, task.longitude, task.title);
   hide_form();

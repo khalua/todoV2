@@ -25,22 +25,28 @@
             = text_field_tag 'duedate'
             = label_tag 'address'
             = text_field_tag 'address'
+            = hidden_field_tag 'task_id'
             = link_to('Cancel', '#', :id=>'cancel_task', :class => 'button radius tiny alert')
             = submit_tag 'New Task', :id => 'create_task', :class => 'button radius tiny'
             = submit_tag 'Edit Task', :id => 'update_task', :class => 'button radius tiny success'
 
-
 .row
   .six.columns
-    %ul#tasks
+    %table
+      %thead
+        %tr
+          %th Done?
+          %th Priority
+          %th Task
+          %th Nuke
+      %tbody
       - @tasks.each do |task|
-        %li.task_title= task.title
-        %script
-          = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
-        .task_detail
-          %li= task.description
-          %li= task.duedate
-          %li= "Task complete?  #{task.is_complete}"
-          / %li= task.priority_id
-          / %li= task.priority.name
-  .six.colums
+        %tr
+          %td= check_box_tag 'is_complete'
+          %td.color= task.priority.color
+          %td= task.title
+          %td= link_to('Delete', '#', :class => 'delete button radius tiny alert')
+          %td.hide= task.id
+          %script
+            = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
+  .six.columns

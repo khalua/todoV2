@@ -13,4 +13,10 @@ class TasksController < ApplicationController
 
   def update
   end
+
+  def destroy
+    task = Task.find(params[:id])
+    task.delete
+    render :json => nil
+  end
 end
