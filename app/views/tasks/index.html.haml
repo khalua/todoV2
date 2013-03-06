@@ -31,7 +31,7 @@
             = submit_tag 'Edit Task', :id => 'update_task', :class => 'button radius tiny success'
 
 .row
-  .six.columns
+  .eight.columns
     %table
       %thead
         %tr
@@ -41,8 +41,8 @@
           %th Nuke
       %tbody
       - @tasks.each do |task|
-        %tr
-          %td= check_box_tag 'is_complete'
+        %tr.task_row
+          %td= check_box_tag 'is_complete', task.id
           %td.color= task.priority.color
           %td= task.title
           %td= link_to('Delete', '#', :class => 'delete button radius tiny alert')
@@ -50,4 +50,4 @@
           %script
             = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
             = "tasks.push({color:'#{task.priority.color}', title:'#{task.title}', value:#{task.priority.value}, latitude:#{task.latitude}, longitude:#{task.longitude}})"
-  .six.columns
+  .four.columns

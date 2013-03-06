@@ -3,9 +3,21 @@ $(function() {
   $('#cancel_task').click(hide_form);
   $('#create_task').click(new_task);
   $('.delete').click(delete_task);
+  $('input#is_complete').click(close_task);
+ //$('input#is_complete').on('click', '.task_row', close_task);
   //$('.delete').on('click', 'tr', delete_task); -- not sure why this doesn't work
 
 });
+
+function close_task()
+{
+  var tr = $(this).parent().parent();
+  tr.addClass('strikethrough');
+  $('.task_row').last().after(tr);
+
+
+}
+
 
 function delete_task()
 {
@@ -14,6 +26,8 @@ function delete_task()
   var token = $('input[name=authenticity_token]').val();
 
   tr.fadeOut(800);
+  //need to delete from array
+
 
   $.ajax({
       dataType: 'json',
@@ -41,7 +55,7 @@ function new_task()
       dataType: 'json',
       type: "post",
       url: "/tasks",
-      data: {authenticity_token:token, 'task[priority_id]':priority_id,'task[is_complete]':is_complete, 'task[title]':title, 'task[description]':description, 'task[duedate]':'task[duedate]', 'task[address]':address}
+      data: {authenticity_token:token, 'task[priority_id]':priority_id,'task[is_complete]':is_complete, 'task[title]':title, 'task[description]':description, 'task[duedate]':duedate, 'task[address]':address}
     }).done(process_task);
 
   return false;
@@ -50,7 +64,7 @@ function new_task()
 function process_task(task_list)
 {
   _.each(task_list, add_task_to_array);
- // $('ul#tasks').empty();
+ $('tbody').empty();
   _.each(tasks, display_task);
 }
 
@@ -65,7 +79,10 @@ function display_task(task)
   td2.addClass('color');
 
   td1.html("<input id='is_complete' name='is_complete' type='checkbox' value='1'>");
-  td2.css('background-color', task.priority.color);
+  if (task.color === undefined)
+      task.color = task.priority.color;
+  td2.css('background-color', task.color);
+  console.log("background-color: " + task.color );
   td3.text(task.title);
   td4.html("<a href='#' class='button radius tiny alert' id='delete_task'>Delete</a>");
   tr.append([td1, td2, td3, td4]);
