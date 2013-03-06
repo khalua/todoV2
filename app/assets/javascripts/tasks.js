@@ -26,7 +26,7 @@ function delete_task()
   var token = $('input[name=authenticity_token]').val();
 
   tr.fadeOut(800);
-  //need to delete from array
+  //need to delete from array and map
 
 
   $.ajax({
@@ -68,6 +68,14 @@ function process_task(task_list)
   _.each(tasks, display_task);
 }
 
+function add_task_to_array(task)
+{
+  task['value'] = task.priority.value;
+  tasks.push(task);
+  tasks = _.sortBy(tasks, function(t){ return t.value;}).reverse();
+}
+
+
 function display_task(task)
 {
   var tr = $('<tr>');
@@ -92,11 +100,6 @@ function display_task(task)
   hide_form();
 }
 
-function add_task_to_array(task)
-{
-  tasks.push(task);
-  tasks = _.sortBy(tasks, function(t){ return t.value;}).reverse();
-}
 
 function show_new_form()
 {

@@ -1,7 +1,7 @@
 #map_canvas
 {
-  width: 400px;
-  height: 500px;
+  width: 900px;
+  height: 900px;
   margin-bottom: 40px;
   border: 2px solid black;
 }
@@ -62,4 +62,11 @@ li
 .strikethrough
 {
   text-decoration: line-through;
+}
+
+label
+{
+  font-size: 20px;
+  margin-top: 10px;
+  background-color: #b9b9b9;
 }
