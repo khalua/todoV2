@@ -11,18 +11,21 @@ function delete_task()
 {
   var tr = $(this).parent().parent();
   var id = $(this).parent().next().text();
-  tr.hide();
+  var token = $('input[name=authenticity_token]').val();
+
+  tr.fadeOut(800);
 
   $.ajax({
       dataType: 'json',
       type: "post",
       url: "/tasks/" + id,
-      data: {authenticity_token:token, 'task[priority_id]':priority_id,'task[is_complete]':is_complete, 'task[title]':title, 'task[description]':description, 'task[duedate]':'task[duedate]', 'task[address]':address}
-    }).done(process_task);
+      data: { _method:'delete', authenticity_token:token }
+    });
 
   return false;
-
 }
+
+
 
 function new_task()
 {
