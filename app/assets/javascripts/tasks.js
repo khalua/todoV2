@@ -1,4 +1,4 @@
-$(function() {
+  $(function() {
   $('#new_task').click(show_new_form);
   $('#cancel_task').click(hide_form);
   $('#create_task').click(new_task);
@@ -25,6 +25,7 @@ function delete_task()
   var id = $(this).parent().next().text();
   var token = $('input[name=authenticity_token]').val();
 
+
   tr.fadeOut(800);
   //need to delete from array and map
 
@@ -37,6 +38,7 @@ function delete_task()
     });
 
   return false;
+
 }
 
 
@@ -64,6 +66,7 @@ function new_task()
 function process_task(task_list)
 {
  $('.task_row').remove();
+ clear_markers();
   _.each(task_list, add_task_to_array);
   _.each(tasks, display_task);
 }
@@ -125,6 +128,7 @@ function hide_form()
 
 //// Map stuff ////
 var map;
+var markers = [];
 
 function display_map(lat, longitude, zoom)
 {
@@ -142,4 +146,12 @@ function add_marker(lat, longitude, title)
 {
   var latlng = new google.maps.LatLng(lat, longitude);
   var marker = new google.maps.Marker({position: latlng, map: map, title: title});
+  markers.push(marker);
+}
+
+
+function clear_markers()
+{
+  _.each(markers, function(m){m.setMap(null);});
+  markers = [];
 }
