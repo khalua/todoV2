@@ -63,13 +63,15 @@ function new_task()
 
 function process_task(task_list)
 {
+ $('.task_row').remove();
   _.each(task_list, add_task_to_array);
- $('tbody').empty();
   _.each(tasks, display_task);
 }
 
 function add_task_to_array(task)
 {
+
+  tasks = _.reject(tasks, function(t){return t.id == task.id;});
   task['value'] = task.priority.value;
   tasks.push(task);
   tasks = _.sortBy(tasks, function(t){ return t.value;}).reverse();
@@ -84,6 +86,7 @@ function display_task(task)
   var td3 = $('<td>');
   var td4 = $('<td>');
 
+  tr.addClass('task_row');
   td2.addClass('color');
 
   td1.html("<input id='is_complete' name='is_complete' type='checkbox' value='1'>");
