@@ -49,4 +49,5 @@
           %td.hide= task.id
           %script
             = "add_marker(#{task.latitude}, #{task.longitude}, '#{task.title}');"
+            = "tasks.push({color:'#{task.priority.color}', title:'#{task.title}', value:#{task.priority.value}, latitude:#{task.latitude}, longitude:#{task.longitude}})"
   .six.columns
